@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import AppLoading from "expo-app-loading";
-import { View } from "react-native";
 
-import { ProtectedScreens } from "./src/screens";
-
+import { AppNavigation } from "./src/navigation";
 import { preAppStart } from "./src/preAppStart";
 
 export default function App() {
@@ -20,10 +17,5 @@ export default function App() {
     );
   }
 
-  return (
-    <View style={{ flex: 1 }}>
-      <ProtectedScreens />
-      <StatusBar style='auto' />
-    </View>
-  );
+  return <AppNavigation />;
 }
