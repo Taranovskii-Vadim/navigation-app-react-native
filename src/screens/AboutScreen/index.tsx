@@ -1,5 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+
+import { OpenRegularText } from "../../components/ui/OpenRegularText";
 
 const styles = StyleSheet.create({
   root: {
@@ -12,7 +14,7 @@ const styles = StyleSheet.create({
 export const AboutScreen = () => {
   return (
     <View style={styles.root}>
-      <Text>AboutScreen</Text>
+      <OpenRegularText>AboutScreen</OpenRegularText>
     </View>
   );
 };
