@@ -18,7 +18,8 @@ interface IProps {
 }
 
 export const MainScreen = ({ navigation }: IProps): JSX.Element => {
-  const goToPost = (postId: string) => navigation.navigate("Post", { postId });
+  const goToPost = (postId: string, title: string) =>
+    navigation.navigate("Post", { postId, title });
 
   return (
     <View style={styles.root}>
@@ -27,7 +28,7 @@ export const MainScreen = ({ navigation }: IProps): JSX.Element => {
         data={DATA}
         keyExtractor={post => post.id.toString()}
         renderItem={({ item }) => (
-          <Post post={item} goToPost={() => goToPost(item.id)} />
+          <Post post={item} goToPost={() => goToPost(item.id, item.text)} />
         )}
       />
     </View>

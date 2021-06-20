@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 });
 
 export const Post = ({ post, goToPost }: IProps): JSX.Element => (
-  <TouchableOpacity style={styles.root} onPress={goToPost}>
+  <TouchableOpacity style={styles.root} activeOpacity={0.7} onPress={goToPost}>
     <ImageBackground style={styles.image} source={{ uri: post.img }}>
       <View style={styles.text}>
         <OpenBoldText style={styles.title}>{post.text}</OpenBoldText>
