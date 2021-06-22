@@ -1,7 +1,9 @@
 import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 import { View, StyleSheet, Image, Button, Alert } from "react-native";
 import { DATA, THEME } from "../../constants";
 
+import { AppIcon } from "../../components/ui/AppIcon";
 import { OpenBoldText } from "../../components/ui/OpenBoldText";
 import { OpenRegularText } from "../../components/ui/OpenRegularText";
 
@@ -17,6 +19,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
 });
+
 interface IProps {
   navigation: any;
 }
@@ -69,7 +72,18 @@ export const PostScreen = ({ navigation }: IProps): JSX.Element => {
 
 PostScreen.navigationOptions = ({ navigation }: IProps) => {
   const title = navigation.getParam("title");
+  const booked = navigation.getParam("booked");
   return {
     headerTitle: title,
+    headerRight: () => (
+      <AppIcon onPress={() => console.log("photo")}>
+        <Ionicons
+          name={booked ? "star-outline" : "star"}
+          size={25}
+          style={{ marginRight: 15 }}
+          color={THEME.MAIN_COLOR}
+        />
+      </AppIcon>
+    ),
   };
 };

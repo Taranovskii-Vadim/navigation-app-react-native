@@ -1,40 +1,42 @@
 import React from "react";
-import { View, StyleSheet, FlatList } from "react-native";
-import { Post } from "../../components/Post";
+import { Ionicons } from "@expo/vector-icons";
+
 import { DATA, THEME } from "../../constants";
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 15,
-    paddingHorizontal: THEME.HORIZONTAL_PADD,
-  },
-});
+import { AppIcon } from "../../components/ui/AppIcon";
+import { PostList } from "../../components/PostList";
 
 interface IProps {
   navigation: any;
 }
 
 export const MainScreen = ({ navigation }: IProps): JSX.Element => {
-  const goToPost = (postId: string, title: string) =>
-    navigation.navigate("Post", { postId, title });
+  const goToPost = (postId: string, title: string, booked: boolean) =>
+    navigation.navigate("Post", { postId, title, booked });
 
-  return (
-    <View style={styles.root}>
-      <FlatList
-        style={{ width: "100%" }}
-        data={DATA}
-        keyExtractor={post => post.id.toString()}
-        renderItem={({ item }) => (
-          <Post post={item} goToPost={() => goToPost(item.id, item.text)} />
-        )}
-      />
-    </View>
-  );
+  return <PostList data={DATA} onOpenPost={goToPost} />;
 };
 
 MainScreen.navigationOptions = {
   headerTitle: "Главная страница",
+  headerRight: () => (
+    <AppIcon onPress={() => console.log("photo")}>
+      <Ionicons
+        style={{ marginRight: 15 }}
+        size={25}
+        color={THEME.MAIN_COLOR}
+        name='ios-camera'
+      ></Ionicons>
+    </AppIcon>
+  ),
+  headerLeft: () => (
+    <AppIcon onPress={() => console.log("list")}>
+      <Ionicons
+        style={{ marginLeft: 15 }}
+        size={25}
+        color={THEME.MAIN_COLOR}
+        name='list-outline'
+      ></Ionicons>
+    </AppIcon>
+  ),
 };

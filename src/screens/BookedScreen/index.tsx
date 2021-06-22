@@ -1,18 +1,34 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+import { DATA, THEME } from "../../constants";
 
-export const BookedScreen = () => {
+import { PostList } from "../../components/PostList";
+import { AppIcon } from "../../components/ui/AppIcon";
+
+interface IProps {
+  navigation: any;
+}
+
+export const BookedScreen = ({ navigation }: IProps): JSX.Element => {
+  const goToPost = (postId: string, title: string, booked: boolean) =>
+    navigation.navigate("Post", { postId, title, booked });
+
   return (
-    <View style={styles.root}>
-      <Text>BookedScreen</Text>
-    </View>
+    <PostList data={DATA.filter(item => item.booked)} onOpenPost={goToPost} />
   );
+};
+
+BookedScreen.navigationOptions = {
+  headerTitle: "Главная страница",
+  headerLeft: () => (
+    <AppIcon onPress={() => console.log("list")}>
+      <Ionicons
+        style={{ marginLeft: 15 }}
+        size={25}
+        color={THEME.MAIN_COLOR}
+        name='list-outline'
+      ></Ionicons>
+    </AppIcon>
+  ),
 };
