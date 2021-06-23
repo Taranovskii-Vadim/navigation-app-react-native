@@ -17,26 +17,28 @@ export const MainScreen = ({ navigation }: IProps): JSX.Element => {
   return <PostList data={DATA} onOpenPost={goToPost} />;
 };
 
-MainScreen.navigationOptions = {
-  headerTitle: "Главная страница",
-  headerRight: () => (
-    <AppIcon onPress={() => console.log("photo")}>
-      <Ionicons
-        style={{ marginRight: 15 }}
-        size={25}
-        color={THEME.MAIN_COLOR}
-        name='ios-camera'
-      ></Ionicons>
-    </AppIcon>
-  ),
-  headerLeft: () => (
-    <AppIcon onPress={() => console.log("list")}>
-      <Ionicons
-        style={{ marginLeft: 15 }}
-        size={25}
-        color={THEME.MAIN_COLOR}
-        name='list-outline'
-      ></Ionicons>
-    </AppIcon>
-  ),
+MainScreen.navigationOptions = ({ navigation }: any) => {
+  return {
+    headerTitle: "Главная страница",
+    headerRight: () => (
+      <AppIcon onPress={() => navigation.push("Create")}>
+        <Ionicons
+          style={{ marginRight: 15 }}
+          size={25}
+          color={THEME.MAIN_COLOR}
+          name='ios-camera'
+        ></Ionicons>
+      </AppIcon>
+    ),
+    headerLeft: () => (
+      <AppIcon onPress={() => navigation.toggleDrawer()}>
+        <Ionicons
+          style={{ marginLeft: 15 }}
+          size={25}
+          color={THEME.MAIN_COLOR}
+          name='list-outline'
+        ></Ionicons>
+      </AppIcon>
+    ),
+  };
 };
