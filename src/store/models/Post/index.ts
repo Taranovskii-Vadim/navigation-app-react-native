@@ -45,7 +45,14 @@ const initialState: TState = {
 };
 
 export const postReducer = produce((draft: Draft<TState>, action: TAction) => {
-  if (action.type === ETypes.SET_POSTS) {
-    draft.data = action.payload;
+  if (action.type === ETypes.DELETE_POST) {
+    draft.data = draft.data.filter(item => item.id !== action.payload);
+  } else if (action.type === ETypes.TOGGLE_BOOKED) {
+    draft.data = draft.data.map(item => {
+      if (item.id === action.payload) {
+        item.booked = !item.booked;
+      }
+      return item;
+    });
   }
 }, initialState);

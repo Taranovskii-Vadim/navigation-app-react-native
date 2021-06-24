@@ -9,7 +9,9 @@ import { OpenBoldText } from "../../components/ui/OpenBoldText";
 import { OpenRegularText } from "../../components/ui/OpenRegularText";
 
 import { selectPosts } from "../../store/models/Post/selectors";
-import { setPosts } from "../../store/models/Post/actions";
+import { deletePost, toggleBooked } from "../../store/models/Post/actions";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 const styles = StyleSheet.create({
   root: {
@@ -35,6 +37,19 @@ export const PostScreen = ({ navigation }: IProps): JSX.Element => {
 
   const post = posts.find(item => item.id === postId);
 
+  const onChangeFavorite = useCallback(() => {
+    dispatch(toggleBooked(postId));
+  }, [dispatch, postId]);
+
+  useEffect(() => {
+    const booked = post ? post.booked : false;
+    navigation.setParams({ booked });
+  }, [post]);
+
+  useEffect(() => {
+    navigation.setParams({ onChangeFavorite });
+  }, [onChangeFavorite]);
+
   const onRemoveTodo = () => {
     Alert.alert("Удаление", "Вы уверены?", [
       {
@@ -44,8 +59,10 @@ export const PostScreen = ({ navigation }: IProps): JSX.Element => {
       {
         text: "Удалить",
         style: "destructive",
-        onPress: () =>
-          dispatch(setPosts(posts.filter(item => item.id !== post?.id))),
+        onPress: () => {
+          navigation.navigate("Main");
+          dispatch(deletePost(post ? post.id : ""));
+        },
       },
     ]);
   };
@@ -80,10 +97,11 @@ export const PostScreen = ({ navigation }: IProps): JSX.Element => {
 PostScreen.navigationOptions = ({ navigation }: IProps) => {
   const title = navigation.getParam("title");
   const booked = navigation.getParam("booked");
+  const onChangeFavorite = navigation.getParam("onChangeFavorite");
   return {
     headerTitle: title,
     headerRight: () => (
-      <AppIcon onPress={() => console.log("photo")}>
+      <AppIcon onPress={onChangeFavorite}>
         <Ionicons
           name={booked ? "star-outline" : "star"}
           size={25}

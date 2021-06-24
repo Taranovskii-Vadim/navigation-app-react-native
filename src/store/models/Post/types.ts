@@ -10,13 +10,18 @@ export interface IPost {
 }
 
 export enum ETypes {
-  SET_POSTS = "post/SET_POSTS",
+  DELETE_POST = "post/DELETE_POST",
+  TOGGLE_BOOKED = "post/TOGGLE_BOOKED",
 }
 
-export interface ISetPosts extends Action<ETypes.SET_POSTS> {
-  payload: TState["data"];
+export interface IDeletePost extends Action<ETypes.DELETE_POST> {
+  payload: string;
 }
 
-export type TAction = ISetPosts;
+export interface IToggleBooked extends Action<ETypes.TOGGLE_BOOKED> {
+  payload: string;
+}
+
+export type TAction = IDeletePost | IToggleBooked;
 
 export type TState = ICommonState<IPost[]>;
