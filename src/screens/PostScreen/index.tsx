@@ -1,11 +1,15 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
 import { View, StyleSheet, Image, Button, Alert } from "react-native";
-import { DATA, THEME } from "../../constants";
 
+import { THEME } from "../../constants";
 import { AppIcon } from "../../components/ui/AppIcon";
 import { OpenBoldText } from "../../components/ui/OpenBoldText";
 import { OpenRegularText } from "../../components/ui/OpenRegularText";
+
+import { selectPosts } from "../../store/models/Post/selectors";
+import { setPosts } from "../../store/models/Post/actions";
 
 const styles = StyleSheet.create({
   root: {
@@ -25,9 +29,11 @@ interface IProps {
 }
 
 export const PostScreen = ({ navigation }: IProps): JSX.Element => {
+  const dispatch = useDispatch();
+  const posts = useSelector(selectPosts);
   const postId = navigation.getParam("postId");
 
-  const post = DATA.find(item => item.id === postId);
+  const post = posts.find(item => item.id === postId);
 
   const onRemoveTodo = () => {
     Alert.alert("Удаление", "Вы уверены?", [
@@ -38,7 +44,8 @@ export const PostScreen = ({ navigation }: IProps): JSX.Element => {
       {
         text: "Удалить",
         style: "destructive",
-        onPress: () => console.log("Удалено"),
+        onPress: () =>
+          dispatch(setPosts(posts.filter(item => item.id !== post?.id))),
       },
     ]);
   };
