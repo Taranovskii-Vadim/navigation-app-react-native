@@ -3,7 +3,8 @@ import { View, FlatList, StyleSheet } from "react-native";
 
 import { Post } from "../Post";
 
-import { IPost, THEME } from "../../constants";
+import { THEME } from "../../constants";
+import { IPost } from "../../store/models/Post/types";
 
 const styles = StyleSheet.create({
   root: {
