@@ -1,11 +1,15 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useEffect } from "react";
+import { View } from "react-native";
+
+import { fetchPosts } from "../store/models/Post/actions";
 
 import { AboutScreen } from "./AboutScreen";
 
-const styles = StyleSheet.create({});
-
 export const ProtectedScreens = () => {
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <AboutScreen />

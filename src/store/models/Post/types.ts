@@ -20,14 +20,18 @@ export interface IDeletePost extends Action<ETypes.DELETE_POST> {
   payload: string;
 }
 
+export interface IFetchPosts extends Action<ETypes.FETCH_POST> {
+  payload: IPost[];
+}
+
 export interface IAddPost extends Action<ETypes.ADD_POST> {
-  payload: { title: string; imgUrl: string };
+  payload: IPost;
 }
 
 export interface IToggleBooked extends Action<ETypes.TOGGLE_BOOKED> {
   payload: string;
 }
 
-export type TAction = IDeletePost | IToggleBooked | IAddPost;
+export type TAction = IDeletePost | IToggleBooked | IAddPost | IFetchPosts;
 
 export type TState = ICommonState<IPost[]>;

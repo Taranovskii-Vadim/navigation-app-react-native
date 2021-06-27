@@ -8,7 +8,6 @@ export const preAppStart = async () => {
       "open-regular": require("../src/fonts/OpenSans-Regular.ttf"),
     });
     await Database.init();
-    console.log("database is running");
   } catch (e) {
     console.log(e);
   }

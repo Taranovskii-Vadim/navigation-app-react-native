@@ -55,12 +55,8 @@ export const postReducer = produce((draft: Draft<TState>, action: TAction) => {
       return item;
     });
   } else if (action.type === ETypes.ADD_POST) {
-    draft.data.unshift({
-      id: (draft.data.length + 1).toString(),
-      img: action.payload.imgUrl,
-      text: action.payload.title,
-      date: new Date().toJSON(),
-      booked: false,
-    });
+    draft.data.unshift(action.payload);
+  } else if (action.type === ETypes.FETCH_POST) {
+    draft.data = action.payload;
   }
 }, initialState);
