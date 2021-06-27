@@ -103,7 +103,7 @@ PostScreen.navigationOptions = ({ navigation }: IProps) => {
     headerRight: () => (
       <AppIcon onPress={onChangeFavorite}>
         <Ionicons
-          name={booked ? "star-outline" : "star"}
+          name={booked ? "star" : "star-outline"}
           size={25}
           style={{ marginRight: 15 }}
           color={THEME.MAIN_COLOR}

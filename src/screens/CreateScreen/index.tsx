@@ -8,13 +8,15 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-  Image,
 } from "react-native";
+
+import { PhotoPicker } from "../../components/PhotoPicker";
 
 import { AppIcon } from "../../components/ui/AppIcon";
 import { THEME } from "../../constants";
 
 import { addPost } from "../../store/models/Post/actions";
+import { useRef } from "react";
 
 const styles = StyleSheet.create({
   root: {
@@ -29,11 +31,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 15,
   },
-  image: {
-    width: "100%",
-    height: 200,
-    marginBottom: 15,
-  },
+  // image: {
+  //   width: "100%",
+  //   height: 200,
+  //   marginBottom: 15,
+  // },
 });
 
 interface IProps {
@@ -46,10 +48,15 @@ const TEMP =
 export const CreateScreen = ({ navigation }: IProps) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState(() => "");
+  const uriRef = useRef<string>();
 
   const onHandleAddPost = () => {
-    dispatch(addPost(title, TEMP));
+    dispatch(addPost(title, uriRef.current || TEMP));
     navigation.navigate("Main");
+  };
+
+  const pickUri = (uri: string): void => {
+    uriRef.current = uri;
   };
 
   return (
@@ -61,8 +68,8 @@ export const CreateScreen = ({ navigation }: IProps) => {
           onChangeText={setTitle}
           placeholder='Введите значение'
         />
-        <Image style={styles.image} source={{ uri: TEMP }} />
-        <Button title='Добавить' onPress={onHandleAddPost} />
+        <PhotoPicker pickUri={pickUri} />
+        <Button title='Добавить' onPress={onHandleAddPost} disabled={!title} />
       </View>
     </TouchableWithoutFeedback>
   );

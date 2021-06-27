@@ -13,6 +13,7 @@ export enum ETypes {
   DELETE_POST = "post/DELETE_POST",
   TOGGLE_BOOKED = "post/TOGGLE_BOOKED",
   ADD_POST = "post/ADD_POST",
+  FETCH_POST = "post/FETCH_POST",
 }
 
 export interface IDeletePost extends Action<ETypes.DELETE_POST> {
